@@ -30,7 +30,34 @@ public class PhilosopherAgent extends Agent<PhilosophersDinnerAMAS, Table> {
 
 	@Override
 	protected void onDecideAndAct() {
-		// TODO Complete this method
+		if (leftFork.owned(this) && rightFork.owned(this)){
+			if (state==State.HUNGRY){
+				this.eatPastas();
+				state=State.EATING;
+			} else {
+				leftFork.release(this);
+			}
+		}
+		else if (leftFork.owned(this)){
+			if (state==State.HUNGRY){
+				rightFork.tryTake(this);
+			} else {
+				leftFork.release(this);
+				state=State.THINK;
+			}
+		}
+		else if (rightFork.owned(this)){
+			if (state==State.HUNGRY){
+				leftFork.tryTake(this);
+			} else {
+				rightFork.release(this);
+				state=State.THINK;
+			}
+		}
+		else if (getMostCriticalNeighbor(true)==this) {
+			state=State.HUNGRY;
+			leftFork.tryTake(this);
+		}
 	}
 
 	private void eatPastas() {
@@ -54,7 +81,8 @@ public class PhilosopherAgent extends Agent<PhilosophersDinnerAMAS, Table> {
 	 */
 	@Override
 	protected double computeCriticality() {
-		// TODO Complete this method
-		return 0.0;
+		if (state==State.THINK) {return 1.;}
+		else if (state==State.HUNGRY) {return 2.;}
+		else {return 0.;}
 	}
 }
