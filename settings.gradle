@@ -1,0 +1,5 @@
+rootProject.name = 'amak-exercise-philosophers-dinner'
+
+// Uncomment these two lines to get AMAK from local
+//include ':amak'
+//project(':amak').projectDir = new File(settingsDir, '../amak')

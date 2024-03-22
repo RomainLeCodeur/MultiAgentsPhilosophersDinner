@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group = 'fr.irit.smac'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    // AMAK
+    implementation 'com.github.alexandreprl:amak:3.1.2'
+//    implementation project(':amak') // Uncomment this line to get AMAK from local
+
+    // LxPlot
+    implementation 'com.github.alexandreprl:lxplot:2.0.0'
+
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.26'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.26'
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
